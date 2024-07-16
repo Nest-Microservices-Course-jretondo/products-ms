@@ -3,6 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { PrismaClient } from '@prisma/client';
 import { RpcException } from '@nestjs/microservices';
+import { PaginationDto } from '../common/dto/pagination.dto';
 
 @Injectable()
 export class ProductsService extends PrismaClient implements OnModuleInit {
@@ -19,7 +20,7 @@ export class ProductsService extends PrismaClient implements OnModuleInit {
     });
   }
 
-  async findAll(paginationDto) {
+  async findAll(paginationDto: PaginationDto) {
     const { limit, page } = paginationDto;
 
     const total = await this.product.count({
